@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AddMessage from './AddMessage';
 import CSS from 'csstype';
+import Channel from '../../types/channel';
+import Message from '../../types/message';
+import MessageItem from './MessageItem';
 
 interface Props {
   addNewMessage: Function;
-  currentChannel: string;
+  channels: Channel[];
+  selectedChannel: string;
+  messages: Message[]
 }
 
 interface State {
@@ -16,13 +20,20 @@ class Messages extends Component<Props, State> {
   render(){
     return (
       <div>
-        <h3>Messages</h3>
+        <h3>{this.props.selectedChannel} Messages</h3>
         <div style={messageBoxStyle}>
-
+          { this.props.selectedChannel ? 
+              this.props.messages.map((message) => (
+                <MessageItem
+                  key={message.id}
+                  message={message}
+                />
+              )) : <div></div>
+        } 
         </div>
         <AddMessage 
           addNewMessage={this.props.addNewMessage}
-          currentChannel={this.props.currentChannel}
+          selectedChannel={this.props.selectedChannel}
         />
       </div>
     )
@@ -31,7 +42,8 @@ class Messages extends Component<Props, State> {
 
 const messageBoxStyle: CSS.Properties = {
   height: '800px',
-  width: '500px'
+  width: '500px',
+  color: 'black'
 }
 
 export default Messages;

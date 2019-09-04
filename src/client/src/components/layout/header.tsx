@@ -6,7 +6,7 @@ class Header extends React.Component {
     return (
       <div>
         <header style={headerStyle}>
-          <h1>Message Board</h1>
+          <h1>Board</h1>
         </header>
       </div>
       

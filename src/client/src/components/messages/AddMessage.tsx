@@ -1,48 +1,51 @@
 import React, { Component, FormEvent, ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 
 interface Props {
   addNewMessage: Function;
-  currentChannel: string
+  selectedChannel: string
 }
 
 interface State {
-  title: string
+  textMessage: string
 }
+
 class AddMessage extends Component<Props, State> {
   state = {
-    title: ''
+    textMessage: ''
   }
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => this.setState({ title: e.target.value })
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => this.setState({ textMessage: e.target.value })
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.props.addNewMessage(this.state.title, this.props.currentChannel);
-    this.setState({ title: '' });
+    this.props.addNewMessage(this.state.textMessage, this.props.selectedChannel);
+    this.setState({ textMessage: '' });
   }
 
   render(){
     return (
       <form
         style={{ display: 'flex' }}
-        onSubmit={this.handleSubmit}
+        onSubmit={this.handleSubmit.bind(this)}
+        id='form1'
       >
         <input 
           type='text'
           name='text'
           style={{ flex: '10', padding: '5px' }}
           placeholder='New Message ...'
-          value={this.state.title}
+          value={this.state.textMessage}
           onChange={this.handleChange}
         />
 
-        <input 
+        <button 
           type='submit'
           value='submit'
           className='btn'
+          form='form1'
+          disabled={!this.props.selectedChannel || !this.state.textMessage }
           style={{ flex: '1' }}
-        />
+        >Submit</button>
 
       </form>
     )

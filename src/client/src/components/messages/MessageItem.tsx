@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Message from '../../types/message';
 
-class MessageItem extends Component {
+interface Props {
+  message: Message;
+}
+
+interface State {
+
+}
+
+class MessageItem extends Component<Props, State> {
   render(){
     return (
       <div>
-        
+        <p>{this.props.message.getMessageText}</p>
       </div>
     )
   }

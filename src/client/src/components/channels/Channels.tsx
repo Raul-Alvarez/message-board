@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import CSS from 'csstype';
-import Context from '../../context';
 import Channel from '../../types/channel';
 import ChannelItem from './ChannelItem';
-import PropTypes from 'prop-types';
 
 interface Props {
   channels: Channel[];
+  clickedChannel: Function
 }
 
 interface State {
 
 }
 class Channels extends Component<Props, State> {
-
-  generateChannelItems = () => {
-    this.props.channels.map((channel) => (
-      <ChannelItem 
-        channel={channel}
-      />
-    ))
-  }
   render() {
     return (
       <div style={channelsStyle}>
-        {this.generateChannelItems}
+        <h3 style={{ textAlign: 'center', color: 'white', paddingTop: '10px'}}>Channels</h3>
+        {
+          this.props.channels ?
+            this.props.channels.map((channel) => (
+              <ChannelItem 
+                key={channel.getChannelId}
+                channel={channel}
+                clickedChannel={this.props.clickedChannel}
+              />
+            )) : <h4>No channels found</h4>
+        }
       </div>
     );
   }
@@ -34,7 +35,7 @@ class Channels extends Component<Props, State> {
 const channelsStyle: CSS.Properties = {
   backgroundColor: '#3F0F3F',
   float: 'left',
-  height: '1000px',
+  height: '882px',
   width: '300px'
 
 }

@@ -12,9 +12,12 @@ class Channel {
     }
     this.id = uuid();
     this.name = name;
-    this.messages = new Array();
+    this.messages = [];
   }
 
+  public get getChannelId(): string {
+    return this.id
+  }
   public get getChannelName(): string {
     return this.name;
   }
